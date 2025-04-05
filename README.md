@@ -1,5 +1,7 @@
 # square_numbers_game
 
+Game is completed.
+
 C++ 20 or above only.
 To play the game:
 
