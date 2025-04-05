@@ -1,5 +1,7 @@
 #include "random.h"
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 void generateSquares(std::vector<int> &arr, int num, int start) {
@@ -26,13 +28,37 @@ int main() {
   int squares;
   std::cin >> squares;
 
-  std::vector<int> squareNumsArr{};
-  generateSquares(squareNumsArr, squares, start);
+  std::vector<int> arr{};
+  generateSquares(arr, squares, start);
 
-  for (auto &p : squareNumsArr) {
-    std::cout << p << ' ';
+  bool win{false};
+  while (true) {
+    std::cout << "";
+    int guess{};
+    std::cin >> guess;
+
+    auto found{std::find(arr.begin(), arr.end(), guess)};
+
+    if (found == arr.end()) {
+      std::vector<int>::iterator result{
+          std::min_element(arr.begin(), arr.end())};
+      std::cout << guess << " is wrong. Try " << *result << " next time.\n";
+      break;
+
+    } else {
+      arr.erase(found);
+
+      if (std::ssize(arr) == 0) {
+        win = true;
+        break;
+      }
+
+      std::cout << "Nice! " << std::ssize(arr) << " number(s) left.\n";
+    }
   }
 
-  std::cout << '\n';
+  if (win)
+    std::cout << "Nice, you found all numbers, good job!\n";
+
   return 0;
 }
