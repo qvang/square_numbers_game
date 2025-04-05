@@ -37,11 +37,16 @@ int main() {
     int guess{};
     std::cin >> guess;
 
+    if (!std::cin) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      continue;
+    }
+
     auto found{std::find(arr.begin(), arr.end(), guess)};
 
     if (found == arr.end()) {
-      std::vector<int>::iterator result{
-          std::min_element(arr.begin(), arr.end())};
+      std::vector<int>::iterator result{std::min_element(arr.begin(), found)};
       std::cout << guess << " is wrong. Try " << *result << " next time.\n";
       break;
 
