@@ -1,5 +1,6 @@
 # square_numbers_game
 
+C++ 20 or above only.
 To play the game:
 
     The user enters a guess.
